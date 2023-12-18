@@ -8,9 +8,10 @@
       <div class="login-form">
         <div class="login-logo">
           <img class="login-icon" src="@/assets/images/logo.svg" alt="" />
-          <h2 class="logo-text">Geeker-Admin</h2>
+          <h2 class="logo-text">Admin-Vue</h2>
         </div>
         <LoginForm />
+        <init></init>
       </div>
     </div>
   </div>
@@ -19,6 +20,7 @@
 <script setup lang="ts" name="login">
 import LoginForm from "./components/LoginForm.vue";
 import SwitchDark from "@/components/SwitchDark/index.vue";
+import init from "./components/init.vue";
 </script>
 
 <style scoped lang="scss">
