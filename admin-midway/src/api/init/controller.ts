@@ -1,6 +1,6 @@
 import { Controller, Get } from '@midwayjs/core';
 
-@Controller("/api")
+@Controller()
 export class InitController{
 
   @Get('/getIsInited')
