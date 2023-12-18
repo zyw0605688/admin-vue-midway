@@ -1,5 +1,5 @@
 import { Provide } from '@midwayjs/core';
-import { IUserOptions } from '../interface.js';
+import { IUserOptions } from '../../interface.js';
 
 @Provide()
 export class UserService {

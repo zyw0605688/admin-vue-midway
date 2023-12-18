@@ -4,14 +4,15 @@
 
 <script setup lang="ts">
 import { reactive, toRefs } from "vue";
+import {GetIsInited} from "@/api/modules/init"
 
 const reactiveData = reactive({
   isInited: false
 });
 
 const getIsInited = async () => {
-  const num = Math.random()
-  reactiveData.isInited = num > 0.5
+  const res = await GetIsInited()
+  reactiveData.isInited = res.data
 };
 getIsInited()
 
