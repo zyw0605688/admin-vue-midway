@@ -1,15 +1,16 @@
 import {Provide} from '@midwayjs/core';
-import {IUserOptions} from '../../interface.js';
+import {NewResponse} from "../../utils/response.js";
 
 @Provide()
 export class UserService {
-  async getUser(options: IUserOptions) {
-    return {
-      uid: options.uid,
+  async getUserInfo(id: string) {
+    const data = {
+      id,
       username: 'mockedName',
       phone: '12345678901',
       email: 'xxx.xxx@xxx.com',
     };
+    return Math.random() > 0.5 ? data : NewResponse(101, data, "特别处理")
   }
 
   async login(username: string, password: string) {

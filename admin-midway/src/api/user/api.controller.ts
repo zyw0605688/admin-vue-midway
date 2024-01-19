@@ -10,15 +10,14 @@ export class UserController {
   @Inject()
   service: UserService;
 
-  @Get('/get_user')
-  async getUser(@Query('uid') uid) {
-    const user = await this.service.getUser({uid});
-    return {success: true, message: 'OK', data: user};
+  @Get('/getUserInfo')
+  async getUser(@Query('id') id) {
+    return await this.service.getUserInfo(id);
   }
 
   @Post('/login')
-  async login(@Body() body) {
-    const {username, password} = body
+  async login(@Body() req) {
+    const {username, password} = req
     return await this.service.login(username, password);
   }
 }
