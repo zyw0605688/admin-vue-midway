@@ -15,9 +15,9 @@ export class UserService {
   async login(username: string, password: string) {
     return {
       uid: "6645-4587-6345-aa84",
-      username: 'mockedName',
+      username: username,
       phone: '12345678901',
-      email: 'xxx.xxx@xxx.com',
+      email: password,
     };
   }
 }
