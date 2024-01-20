@@ -10,8 +10,8 @@
                 @click="toItem(item.path)"
             >
                 <div class="tags-li-title">
-                    {{item.title}}
-                    <el-icon @click="closeTags(index)">
+                    <div class="tags-li-title-left">{{item.title}}</div>
+                    <el-icon @click.stop="closeTags(index)">
                         <Close/>
                     </el-icon>
                 </div>
@@ -49,6 +49,9 @@ const isActive = (path: string) => {
 const tags = useTagsStore();
 // 关闭单个标签
 const closeTags = (index: number) => {
+    if (index === 0 && tags.list[index].path === "/dashboard") {
+        return
+    }
     const delItem = tags.list[index];
     tags.delTagsItem(index);
     const item = tags.list[index] ? tags.list[index] : tags.list[index - 1];
@@ -84,6 +87,9 @@ onBeforeRouteUpdate(to => {
 
 // 关闭全部标签
 const closeAll = () => {
+    if (tags.list.length === 1 && tags.list[0].path === "/dashboard") {
+        return
+    }
     tags.clearTags();
     router.push('/');
 };
@@ -149,16 +155,22 @@ const handleTags = (command: string) => {
 }
 
 .tags-li-title {
-    float: left;
-    max-width: 80px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    margin-right: 5px;
-    color: #666;
+    .tags-li-title-left {
+        float: left;
+        max-width: 80px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        margin-right: 5px;
+        color: #000;
+    }
+
+    .el-icon {
+        margin-top: 3px;
+    }
 }
 
-.tags-li.active .tags-li-title {
+.tags-li.active .tags-li-title .tags-li-title-left {
     color: #fff;
 }
 
