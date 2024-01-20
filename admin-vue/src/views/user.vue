@@ -74,7 +74,8 @@ import VueCropper from 'vue-cropperjs';
 import 'cropperjs/dist/cropper.css';
 import avatar from '../assets/img/img.jpg';
 
-const name = localStorage.getItem('user_info');
+const user_info = JSON.parse(localStorage.getItem('user_info'));
+const name = user_info.username;
 const form = reactive({
 	old: '',
 	new: '',

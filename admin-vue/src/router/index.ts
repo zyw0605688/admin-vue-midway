@@ -60,15 +60,6 @@ const routes: RouteRecordRaw[] = [
                 component: () => import(/* webpackChunkName: "tabs" */ '../views/tabs.vue'),
             },
             {
-                path: '/donate',
-                name: 'donate',
-                meta: {
-                    title: '鼓励作者',
-                    permiss: '14',
-                },
-                component: () => import(/* webpackChunkName: "donate" */ '../views/donate.vue'),
-            },
-            {
                 path: '/permission',
                 name: 'permission',
                 meta: {
@@ -155,7 +146,7 @@ const routes: RouteRecordRaw[] = [
         meta: {
             title: '没有权限',
         },
-        component: () => import(/* webpackChunkName: "403" */ '../views/403.vue'),
+        component: () => import(/* webpackChunkName: "403" */ '../views/error/403.vue'),
     },
 ];
 
