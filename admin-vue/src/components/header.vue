@@ -31,9 +31,6 @@
 					</span>
 					<template #dropdown>
 						<el-dropdown-menu>
-							<a href="https://github.com/lin-xin/vue-manage-system" target="_blank">
-								<el-dropdown-item>项目仓库</el-dropdown-item>
-							</a>
 							<el-dropdown-item command="user">个人中心</el-dropdown-item>
 							<el-dropdown-item divided command="loginout">退出登录</el-dropdown-item>
 						</el-dropdown-menu>
@@ -49,7 +46,7 @@ import { useSidebarStore } from '../store/sidebar';
 import { useRouter } from 'vue-router';
 import imgurl from '../assets/img/img.jpg';
 
-const username: string | null = localStorage.getItem('ms_username');
+const username: string | null = JSON.parse(localStorage.getItem('user_info')).username;
 const message: number = 2;
 
 const sidebar = useSidebarStore();

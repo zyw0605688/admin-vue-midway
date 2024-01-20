@@ -166,7 +166,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
     NProgress.start();
-    const role = localStorage.getItem('ms_username');
+    const role = localStorage.getItem('user_info');
     const permiss = usePermissStore();
     if (!role && to.path !== '/login') {
         next('/login');
