@@ -49,7 +49,7 @@ const isActive = (path: string) => {
 const tags = useTagsStore();
 // 关闭单个标签
 const closeTags = (index: number) => {
-    if (index === 0 && tags.list[index].path === "/dashboard") {
+    if (tags.list.length === 1 && tags.list[index].path === "/dashboard") {
         return
     }
     const delItem = tags.list[index];
