@@ -121,8 +121,9 @@ import Schart from 'vue-schart';
 import { reactive } from 'vue';
 import imgurl from '../assets/img/img.jpg';
 
-const name = localStorage.getItem('user_info');
-const role: string = name === 'admin' ? '超级管理员' : '普通用户';
+const user_info = JSON.parse(localStorage.getItem('user_info'))
+const name = user_info.username;
+const role: string = user_info.role === 'admin' ? '超级管理员' : '普通用户';
 
 const options = {
 	type: 'bar',
