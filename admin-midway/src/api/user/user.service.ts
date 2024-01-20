@@ -17,8 +17,10 @@ export class UserService {
     return {
       uid: "6645-4587-6345-aa84",
       username: username,
+      password: password,
       phone: '12345678901',
       email: password,
+      role: "admin"
     };
   }
 }

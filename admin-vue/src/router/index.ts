@@ -166,9 +166,9 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
     NProgress.start();
-    const role = localStorage.getItem('user_info');
+    const user_info = localStorage.getItem('user_info');
     const permiss = usePermissStore();
-    if (!role && to.path !== '/login') {
+    if (!user_info && to.path !== '/login') {
         next('/login');
     } else if (to.meta.permiss && !permiss.key.includes(to.meta.permiss)) {
         // 如果没有权限，则进入403

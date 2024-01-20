@@ -73,10 +73,11 @@ const submitForm = (formEl: FormInstance | undefined) => {
         if (valid) {
             const res = await loginHttp(param)
             ElMessage.success('登录成功');
-            const keys = permiss.defaultList[param.username == 'admin' ? 'admin' : 'user'];
+            const keys = permiss.defaultList[res.data.role === 'admin' ? 'admin' : 'user'];
             permiss.handleSet(keys);
             localStorage.setItem('user_info', JSON.stringify(res.data));
-            await router.push('/');
+            localStorage.setItem('permit_keys', JSON.stringify(keys));
+            router.push('/');
         } else {
             ElMessage.error('登录失败');
             return false;
@@ -96,7 +97,7 @@ tags.clearTags();
     width: 100%;
     height: 100%;
     background-image: url(../assets/img/login-bg.jpg);
-    background-size: 100% 100%;
+    background-size: 100%;
 }
 
 .ms-title {

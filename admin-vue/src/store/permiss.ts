@@ -6,7 +6,7 @@ interface ObjectList {
 
 export const usePermissStore = defineStore('permiss', {
 	state: () => {
-		const keys = localStorage.getItem('ms_keys');
+		const keys = localStorage.getItem('permit_keys');
 		return {
 			key: keys ? JSON.parse(keys) : <string[]>[],
 			defaultList: <ObjectList>{
