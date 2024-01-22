@@ -72,7 +72,7 @@
 import { reactive, ref } from 'vue';
 import VueCropper from 'vue-cropperjs';
 import 'cropperjs/dist/cropper.css';
-import avatar from '../assets/img/img.jpg';
+import avatar from '../../assets/img/img.jpg';
 
 const user_info = JSON.parse(localStorage.getItem('user_info'));
 const name = user_info.username;
