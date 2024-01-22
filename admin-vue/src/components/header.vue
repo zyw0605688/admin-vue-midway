@@ -9,7 +9,7 @@
 		<div class="header-right">
 			<div class="header-user-con">
 				<!-- 消息中心 -->
-				<div class="btn-bell" @click="router.push('/tabs')">
+				<div class="btn-bell">
 					<el-tooltip
 						effect="dark"
 						:content="message ? `有${message}条未读消息` : `消息中心`"
@@ -68,7 +68,7 @@ const handleCommand = (command: string) => {
 		localStorage.removeItem('user_info');
 		router.push('/login');
 	} else if (command == 'user') {
-		router.push('/user');
+		router.push('/user/center');
 	}
 };
 </script>

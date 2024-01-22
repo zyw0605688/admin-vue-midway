@@ -15,7 +15,7 @@
                         type="password"
                         placeholder="password"
                         v-model="param.password"
-                        @keyup.enter="submitForm(login)"
+                        @keyup.enter="submitForm(index)"
                     >
                         <template #prepend>
                             <el-button :icon="Lock"></el-button>
@@ -23,7 +23,7 @@
                     </el-input>
                 </el-form-item>
                 <div class="login-btn">
-                    <el-button type="primary" @click="submitForm(login)">登录</el-button>
+                    <el-button type="primary" @click="submitForm(index)">登录</el-button>
                 </div>
             </el-form>
         </div>
@@ -32,8 +32,8 @@
 
 <script setup lang="ts">
 import {ref, reactive} from 'vue';
-import {useTagsStore} from '../store/tags';
-import {usePermissStore} from '../store/permiss';
+import {useTagsStore} from '../../store/tags';
+import {usePermissStore} from '../../store/permiss';
 import {useRouter} from 'vue-router';
 import {ElMessage} from 'element-plus';
 import type {FormInstance, FormRules} from 'element-plus';
@@ -96,7 +96,7 @@ tags.clearTags();
     justify-content: center;
     width: 100%;
     height: 100%;
-    background-image: url(../assets/img/login-bg.jpg);
+    background-image: url(../../assets/img/login-bg.jpg);
     background-size: 100%;
 }
 

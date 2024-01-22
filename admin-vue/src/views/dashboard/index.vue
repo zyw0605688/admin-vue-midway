@@ -119,7 +119,7 @@
 <script setup lang="ts" name="dashboard">
 import Schart from 'vue-schart';
 import { reactive } from 'vue';
-import imgurl from '../assets/img/img.jpg';
+import imgurl from '../../assets/img/img.jpg';
 
 const user_info = JSON.parse(localStorage.getItem('user_info'))
 const name = user_info.username;
