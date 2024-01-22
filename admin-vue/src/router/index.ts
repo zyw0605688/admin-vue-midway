@@ -1,6 +1,6 @@
 import {createRouter, createWebHashHistory, RouteRecordRaw} from 'vue-router';
 import {usePermissStore} from '../store/permiss';
-import Home from '../views/home.vue';
+import Home from '../components/layout.vue';
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 

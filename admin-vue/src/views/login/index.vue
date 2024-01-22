@@ -15,7 +15,7 @@
                         type="password"
                         placeholder="password"
                         v-model="param.password"
-                        @keyup.enter="submitForm(index)"
+                        @keyup.enter="submitForm(login)"
                     >
                         <template #prepend>
                             <el-button :icon="Lock"></el-button>
@@ -23,7 +23,7 @@
                     </el-input>
                 </el-form-item>
                 <div class="login-btn">
-                    <el-button type="primary" @click="submitForm(index)">登录</el-button>
+                    <el-button type="primary" @click="submitForm(login)">登录</el-button>
                 </div>
             </el-form>
         </div>
@@ -47,7 +47,6 @@ interface LoginInfo {
 
 const lgStr = localStorage.getItem('user_info');
 const defParam = lgStr ? JSON.parse(lgStr) : null;
-const checked = ref(true);
 
 const router = useRouter();
 const param = reactive<LoginInfo>({
@@ -72,10 +71,15 @@ const submitForm = (formEl: FormInstance | undefined) => {
     formEl.validate(async (valid: boolean) => {
         if (valid) {
             const res = await loginHttp(param)
+            if (res.code !== 0) {
+                ElMessage.error(res.msg);
+                return false;
+            }
             ElMessage.success('登录成功');
             const keys = permiss.defaultList[res.data.role === 'admin' ? 'admin' : 'user'];
             permiss.handleSet(keys);
-            localStorage.setItem('user_info', JSON.stringify(res.data));
+            localStorage.setItem('user_info', JSON.stringify(res.data.user_info));
+            localStorage.setItem('token', JSON.stringify(res.data.token));
             localStorage.setItem('permit_keys', JSON.stringify(keys));
             router.push('/');
         } else {
@@ -97,7 +101,7 @@ tags.clearTags();
     width: 100%;
     height: 100%;
     background-image: url(../../assets/img/login-bg.jpg);
-    background-size: 100%;
+    background-size: 100% 100%;
 }
 
 .ms-title {
