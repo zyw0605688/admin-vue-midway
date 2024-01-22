@@ -24,4 +24,14 @@ export default {
       }
     }
   },
+  jwt: {
+    secret: 'zyw0605688',
+    sign: {
+      expiresIn: '8h',
+    },
+    verify: {
+    },
+    decode: {
+    }
+  },
 } as MidwayConfig;

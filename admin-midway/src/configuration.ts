@@ -3,8 +3,9 @@ import * as koa from '@midwayjs/koa';
 import * as validate from '@midwayjs/validate';
 import * as info from '@midwayjs/info';
 import * as orm from '@midwayjs/typeorm';
-import {ReportMiddleware} from './middleware/report.middleware.js';
+import * as jwt from '@midwayjs/jwt';
 import {ResponseMiddleware} from './middleware/response.middleware.js';
+import {JwtMiddleware} from './middleware/jwt.middleware.js';
 import {DefaultErrorFilter} from './filter/default.filter.js';
 import {NotFoundFilter} from './filter/notfound.filter.js';
 import DefaultConfig from './config/config.default.js';
@@ -15,6 +16,7 @@ import UnittestConfig from './config/config.unittest.js';
     koa,
     validate,
     orm,
+    jwt,
     {
       component: info,
       enabledEnvironment: ['local'],
@@ -32,7 +34,7 @@ export class MainConfiguration {
   app: koa.Application;
 
   async onReady() {
-    this.app.useMiddleware([ReportMiddleware, ResponseMiddleware]);
+    this.app.useMiddleware([JwtMiddleware, ResponseMiddleware]);
     this.app.useFilter([DefaultErrorFilter, NotFoundFilter]);
   }
 }

@@ -1,13 +1,17 @@
-import {Provide} from '@midwayjs/core';
+import {Inject, Provide} from '@midwayjs/core';
 import {NewResponse} from "../../utils/response.js";
 import {DataSource} from 'typeorm';
 import {InjectDataSource} from "@midwayjs/typeorm";
 import {User} from "../../entity/user.entity.js";
+import {JwtService} from "@midwayjs/jwt";
 
 @Provide()
 export class UserService {
   @InjectDataSource()
   defaultDataSource: DataSource;
+
+  @Inject()
+  jwtService: JwtService;
 
   async create(data) {
     return await this.defaultDataSource.getRepository(User).save(data)
@@ -59,8 +63,20 @@ export class UserService {
   }
 
   async login(data) {
-    console.log(data)
-    return null
+    const res = await this.defaultDataSource.getRepository(User).findOneBy(data)
+    if (!res) {
+      return NewResponse(101, "", "用户名密码不正确")
+    }
+    const payload = {
+      id: res.id,
+      username: res.username,
+      role: "admin"
+    }
+    const token = await this.jwtService.sign(payload);
+    return {
+      user_info: res,
+      token: token
+    }
   }
 
 
