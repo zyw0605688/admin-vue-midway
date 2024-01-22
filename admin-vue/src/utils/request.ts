@@ -9,7 +9,7 @@ service.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     const token = JSON.parse(localStorage.getItem("token"))
     if (token && token.length) {
-      config.headers.token = token
+      config.headers.authorization = "Bearer " + token
     }
     return config;
   },
