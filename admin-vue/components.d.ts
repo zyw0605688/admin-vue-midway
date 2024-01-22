@@ -31,10 +31,12 @@ declare module '@vue/runtime-core' {
     ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
     ElOption: typeof import('element-plus/es')['ElOption']
     ElPagination: typeof import('element-plus/es')['ElPagination']
+    ElPopover: typeof import('element-plus/es')['ElPopover']
     ElProgress: typeof import('element-plus/es')['ElProgress']
     ElRadio: typeof import('element-plus/es')['ElRadio']
     ElRadioGroup: typeof import('element-plus/es')['ElRadioGroup']
     ElRow: typeof import('element-plus/es')['ElRow']
+    ElScrollbar: typeof import('element-plus/es')['ElScrollbar']
     ElSelect: typeof import('element-plus/es')['ElSelect']
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
@@ -50,8 +52,8 @@ declare module '@vue/runtime-core' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Sidebar: typeof import('./src/components/sidebar.vue')['default']
-    TableDetail: typeof import('./src/components/table-detail.vue')['default']
-    TableEdit: typeof import('./src/components/table-edit.vue')['default']
+    TableDetail: typeof import('./src/views/user/table-detail.vue')['default']
+    TableEdit: typeof import('./src/views/user/table-edit.vue')['default']
     Tags: typeof import('./src/components/tags.vue')['default']
   }
 }

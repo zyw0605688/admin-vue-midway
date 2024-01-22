@@ -1,0 +1,21 @@
+.mva-container-wrap {
+  box-sizing: border-box;
+  background-color: #fff;
+  height: calc(100vh - 70px - 36px - 24px);
+  padding: 12px;
+
+  .mva-table-box {
+    margin-top: 12px;
+
+    .el-table {
+      margin-top: 12px;
+      height: calc(100vh - 70px - 36px - 24px - 180px);
+      overflow: auto;
+    }
+
+    .mva-pagination {
+      margin-top: 12px;
+      float: right;
+    }
+  }
+}

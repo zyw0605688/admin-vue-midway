@@ -30,7 +30,7 @@ const routes: RouteRecordRaw[] = [
                     title: '表格',
                     permiss: '2',
                 },
-                component: () => import(/* webpackChunkName: "table" */ '../views/table.vue'),
+                component: () => import(/* webpackChunkName: "table" */ '../views/user/index.vue'),
             },
             {
                 path: '/charts',

@@ -10,7 +10,6 @@ service.interceptors.request.use(
     return config;
   },
   (error: AxiosError) => {
-    console.log(error);
     return Promise.reject();
   }
 );
@@ -29,4 +28,39 @@ service.interceptors.response.use(
   }
 );
 
-export default service;
+const http = {
+  get(url, params) {
+    return new Promise((resolve, reject) => {
+      service.get(url, {params: params})
+        .then((res) => {
+          resolve(res);
+        })
+        .catch((err) => {
+          reject(err.data);
+        });
+    });
+  },
+  post(url, data) {
+    return new Promise((resolve, reject) => {
+      service.post(url, data)
+        .then((res) => {
+          resolve(res);
+        })
+        .catch((err) => {
+          reject(err.data);
+        });
+    });
+  },
+  delete(url, params) {
+    return new Promise((resolve, reject) => {
+      service.delete(url, {params: params})
+        .then((res) => {
+          resolve(res);
+        })
+        .catch((err) => {
+          reject(err.data);
+        });
+    });
+  },
+};
+export default http;
