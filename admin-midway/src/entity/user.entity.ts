@@ -1,4 +1,5 @@
-import {Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn} from 'typeorm';
+import {Entity, Column} from 'typeorm';
+import {BaseDB} from "./base.js";
 
 export enum UserSex {
   MALE = "m",
@@ -7,40 +8,28 @@ export enum UserSex {
 }
 
 @Entity("sys_user")
-export class User {
-
-  @PrimaryGeneratedColumn()
-  id: number;
-
-  @Column()
+export class User extends BaseDB {
+  @Column({nullable:true, unique: true})
   username: string;
 
   @Column()
   password: string;
 
-  @Column()
+  @Column({nullable:true,unique: true})
   email: string;
 
   @Column({
+    nullable:true,
     type: "enum",
     enum: UserSex,
     default: UserSex.UNKNOWN
   })
   sex: UserSex;
 
-  @Column()
+  @Column({nullable:true,unique: true})
   phone: string;
 
-  @Column()
+  @Column({nullable:true})
   nickname: string;
-
-  @CreateDateColumn()
-  create_at: string;
-
-  @UpdateDateColumn()
-  update_at: string;
-
-  @DeleteDateColumn()
-  delete_at: string;
 
 }

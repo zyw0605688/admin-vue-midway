@@ -11,7 +11,10 @@
     "@midwayjs/info": "^3.14.0",
     "@midwayjs/koa": "^3.14.0",
     "@midwayjs/logger": "^2.14.0",
-    "@midwayjs/validate": "^3.14.0"
+    "@midwayjs/typeorm": "^3.14.7",
+    "@midwayjs/validate": "^3.14.0",
+    "pg": "^8.11.3",
+    "typeorm": "^0.3.19"
   },
   "devDependencies": {
     "@midwayjs/mock": "^3.14.0",

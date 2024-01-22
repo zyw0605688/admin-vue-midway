@@ -2,6 +2,7 @@ import {Configuration, App} from '@midwayjs/core';
 import * as koa from '@midwayjs/koa';
 import * as validate from '@midwayjs/validate';
 import * as info from '@midwayjs/info';
+import * as orm from '@midwayjs/typeorm';
 import {ReportMiddleware} from './middleware/report.middleware.js';
 import {ResponseMiddleware} from './middleware/response.middleware.js';
 import {DefaultErrorFilter} from './filter/default.filter.js';
@@ -13,6 +14,7 @@ import UnittestConfig from './config/config.unittest.js';
   imports: [
     koa,
     validate,
+    orm,
     {
       component: info,
       enabledEnvironment: ['local'],
