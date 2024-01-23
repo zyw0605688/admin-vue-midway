@@ -31,4 +31,40 @@ service.interceptors.response.use(
     return Promise.reject();
   }
 );
-export default service;
+
+const http = {
+  get(url, params) {
+    return new Promise((resolve, reject) => {
+      service.get(url, {params: params})
+        .then((res) => {
+          resolve(res);
+        })
+        .catch((err) => {
+          reject(err.data);
+        });
+    });
+  },
+  post(url, data) {
+    return new Promise((resolve, reject) => {
+      service.post(url, data)
+        .then((res) => {
+          resolve(res);
+        })
+        .catch((err) => {
+          reject(err.data);
+        });
+    });
+  },
+  delete(url, params) {
+    return new Promise((resolve, reject) => {
+      service.delete(url, {params: params})
+        .then((res) => {
+          resolve(res);
+        })
+        .catch((err) => {
+          reject(err.data);
+        });
+    });
+  },
+};
+export default http;

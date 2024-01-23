@@ -4,20 +4,20 @@ export const login = async (data) => {
   return http.post("/user/login", data)
 }
 
-export const createUser = async (data) => {
+export const create = async (data) => {
   return http.post("/user/create", data)
 }
 
 
-export const deleteUserByIds = async (params) => {
+export const deleteByIds = async (params) => {
   return http.delete("/user/delete", params)
 }
 
-export const updateUserById = async (data) => {
+export const updateById = async (data) => {
   return http.post("/user/update", data)
 }
 
-export const getUserListPage = async (params) => {
+export const getPageList = async (params) => {
   return http.get("/user/list",params)
 }
 

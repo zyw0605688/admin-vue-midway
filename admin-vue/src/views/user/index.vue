@@ -122,11 +122,11 @@ export default {
 
 <script setup>
 import {
-    createUser,
-    deleteUserByIds,
-    updateUserById,
+    create,
+    deleteByIds,
+    updateById,
     getDetailById,
-    getUserListPage,
+    getPageList,
 } from '@/api/user'
 
 // 全量引入格式化工具 请按需保留
@@ -134,7 +134,6 @@ import {ElMessage, ElMessageBox} from 'element-plus'
 import {ref, reactive}           from 'vue'
 
 // 自动化生成的字典（可能为空）以及字段
-const video_sourceOptions = ref([])
 const formData = ref({
     username: '',
     password: '',
@@ -143,22 +142,24 @@ const formData = ref({
 
 // 验证规则
 const rule = reactive({
-    title: [{
-        required: true,
-        message: '',
-        trigger: ['input', 'blur'],
-    },
+    title: [
+        {
+            required: true,
+            message: '',
+            trigger: ['input', 'blur'],
+        },
         {
             whitespace: true,
             message: '不能只输入空格',
             trigger: ['input', 'blur'],
         }
     ],
-    video_source: [{
-        required: true,
-        message: '',
-        trigger: ['input', 'blur'],
-    },
+    video_source: [
+        {
+            required: true,
+            message: '',
+            trigger: ['input', 'blur'],
+        }
     ],
 })
 
@@ -220,15 +221,16 @@ const handleCurrentChange = (val) => {
 
 // 查询
 const getTableData = async () => {
-    const table = await getUserListPage({page: page.value, pageSize: pageSize.value, ...searchInfo.value})
-    if(table.code === 0) {
-        tableData.value = table.data.list
-        total.value = table.data.total
-        page.value = table.data.page
-        pageSize.value = table.data.pageSize
+    const params = {page: page.value, pageSize: pageSize.value, ...searchInfo.value}
+    console.log(params)
+    const res = await getPageList(params)
+    if(res.code === 0) {
+        tableData.value = res.data.list
+        total.value = res.data.total
+        page.value = res.data.page
+        pageSize.value = res.data.pageSize
     }
 }
-
 getTableData()
 
 // ============== 表格控制部分结束 ===============
@@ -258,7 +260,7 @@ const deleteRow = async (row) => {
             type: 'warning'
         })
         if(temp) {
-            await deleteUserByIds({ids: row.id})
+            await deleteByIds({ids: row.id})
             await getTableData()
         }
     } catch (e) {
@@ -284,7 +286,7 @@ const onDelete = async () => {
     multipleSelection.value.map(item => {
         ids.push(item.id)
     })
-    const res = await deleteUserByIds({ids: ids.join(",")})
+    const res = await deleteByIds({ids: ids.join(",")})
     if(res.code === 0) {
         ElMessage({
             type: 'success',
@@ -389,10 +391,10 @@ const enterDialog = async () => {
         let res
         switch (type.value) {
             case 'create':
-                res = await createUser(formData.value)
+                res = await create(formData.value)
                 break
             case 'update':
-                res = await updateUserById(formData.value)
+                res = await updateById(formData.value)
                 break
         }
         if(res.code === 0) {

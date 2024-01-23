@@ -22,7 +22,7 @@ const routes: RouteRecordRaw[] = [
       },
       {
         path: '/user',
-        name: 'basetable',
+        name: 'user',
         meta: {
           title: '用户管理',
           permiss: '2',
@@ -34,13 +34,13 @@ const routes: RouteRecordRaw[] = [
         name: 'permission',
         meta: {
           title: '权限管理',
-          permiss: '13',
+          permiss: '3',
         },
         component: () => import(/* webpackChunkName: "permission" */ '../views/system/permission.vue'),
       },
       {
         path: '/user/center',
-        name: 'user',
+        name: 'usercenter',
         meta: {
           title: '个人中心',
         },
@@ -50,8 +50,8 @@ const routes: RouteRecordRaw[] = [
         path: '/editor',
         name: 'editor',
         meta: {
-          title: '富文本编辑器',
-          permiss: '8',
+          title: '富文本',
+          permiss: '5',
         },
         component: () => import(/* webpackChunkName: "editor" */ '../views/system/editor.vue'),
       },
@@ -59,8 +59,8 @@ const routes: RouteRecordRaw[] = [
         path: '/markdown',
         name: 'markdown',
         meta: {
-          title: 'markdown编辑器',
-          permiss: '9',
+          title: 'markdown',
+          permiss: '6',
         },
         component: () => import(/* webpackChunkName: "markdown" */ '../views/system/markdown.vue'),
       },
