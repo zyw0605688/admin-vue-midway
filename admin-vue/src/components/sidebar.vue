@@ -71,23 +71,29 @@ const items = [
             {
                 index: '/user',
                 title: '用户管理',
-                permiss: '2',
+                permiss: '3',
             },
             {
                 index: '/editor',
                 title: '富文本',
-                permiss: '8',
+                permiss: '4',
             },
             {
                 index: '/markdown',
                 title: 'markdown',
-                permiss: '9',
+                permiss: '5',
             },
             {
                 icon: 'Warning',
                 index: '/permission',
                 title: '权限管理',
-                permiss: '13',
+                permiss: '6',
+            },
+            {
+                icon: 'Warning',
+                index: '/autoCode',
+                title: '自动代码',
+                permiss: '7',
             },
         ],
     },

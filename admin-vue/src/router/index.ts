@@ -64,6 +64,16 @@ const routes: RouteRecordRaw[] = [
         },
         component: () => import(/* webpackChunkName: "markdown" */ '../views/system/markdown.vue'),
       },
+      {
+        path: '/autoCode',
+        name: 'autoCode',
+        meta: {
+          title: 'autoCode',
+          permiss: '7',
+        },
+        component: () => import(/* webpackChunkName: "markdown" */ '../views/autoCode/index.vue'),
+      },
+
     ],
   },
   {
