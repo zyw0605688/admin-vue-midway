@@ -1,5 +1,5 @@
 import {Entity, Column} from 'typeorm';
-import {BaseDB} from "./base.js";
+import {BaseEntity} from "./base.js";
 
 export enum UserSex {
   MALE = "m",
@@ -8,7 +8,7 @@ export enum UserSex {
 }
 
 @Entity("sys_user")
-export class User extends BaseDB {
+export class UserEntity extends BaseEntity {
   @Column({nullable:true, unique: true})
   username: string;
 
@@ -31,5 +31,4 @@ export class User extends BaseDB {
 
   @Column({nullable:true})
   nickname: string;
-
 }

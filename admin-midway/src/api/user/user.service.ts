@@ -2,7 +2,7 @@ import {Inject, Provide} from '@midwayjs/core';
 import {NewResponse} from "../../utils/response.js";
 import {DataSource} from 'typeorm';
 import {InjectDataSource} from "@midwayjs/typeorm";
-import {User} from "../../entity/user.entity.js";
+import {UserEntity} from "../../entity/user.entity.js";
 import {JwtService} from "@midwayjs/jwt";
 
 @Provide()
@@ -14,27 +14,27 @@ export class UserService {
   jwtService: JwtService;
 
   async create(data) {
-    return await this.defaultDataSource.getRepository(User).save(data)
+    return await this.defaultDataSource.getRepository(UserEntity).save(data)
   }
 
   // 批量删除，参数是数组形式的id列表
   async deleteByIds(idList) {
-    return await this.defaultDataSource.getRepository(User).softDelete(idList)
+    return await this.defaultDataSource.getRepository(UserEntity).softDelete(idList)
   }
 
   async update(data) {
-    const temp = await this.defaultDataSource.getRepository(User).findOneBy({id: data.id})
+    const temp = await this.defaultDataSource.getRepository(UserEntity).findOneBy({id: data.id})
     Object.assign(temp, data)
-    return await this.defaultDataSource.getRepository(User).save(temp)
+    return await this.defaultDataSource.getRepository(UserEntity).save(temp)
   }
 
   async detail(id) {
-    return await this.defaultDataSource.getRepository(User).findOneBy({id})
+    return await this.defaultDataSource.getRepository(UserEntity).findOneBy({id})
   }
 
   async pageList(params) {
-    const db = this.defaultDataSource.getRepository(User).createQueryBuilder()
-    const count = this.defaultDataSource.getRepository(User).createQueryBuilder()
+    const db = this.defaultDataSource.getRepository(UserEntity).createQueryBuilder()
+    const count = this.defaultDataSource.getRepository(UserEntity).createQueryBuilder()
     if (params.page && params.pageSize) {
       db.skip((params.page - 1) * params.pageSize).take(params.pageSize)
     }
@@ -63,7 +63,7 @@ export class UserService {
   }
 
   async login(data) {
-    const res = await this.defaultDataSource.getRepository(User).findOneBy(data)
+    const res = await this.defaultDataSource.getRepository(UserEntity).findOneBy(data)
     if (!res) {
       return NewResponse(101, "", "用户名密码不正确")
     }

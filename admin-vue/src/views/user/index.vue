@@ -1,8 +1,8 @@
 <template>
     <div class="mva-container-wrap">
         <div class="mva-search-box">
-            <el-form ref="elSearchFormRef" :inline="true" :model="searchInfo" class="demo-form-inline" :rules="searchRule" @keyup.enter="onSubmit">
-                <el-form-item label="用户名" prop="title">
+            <el-form ref="elSearchFormRef" :inline="true" :model="searchInfo" class="demo-form-inline" @keyup.enter="onSubmit">
+                <el-form-item label="用户名">
                     <el-input v-model="searchInfo.username" placeholder="搜索用户名"/>
                 </el-form-item>
                 <el-form-item>
@@ -114,13 +114,7 @@
     </div>
 </template>
 
-<script>
-export default {
-    name: 'VideoCrawlRecord'
-}
-</script>
-
-<script setup>
+<script setup lang="ts" name="User">
 import {
     create,
     deleteByIds,
@@ -131,18 +125,19 @@ import {
 
 // 全量引入格式化工具 请按需保留
 import {ElMessage, ElMessageBox} from 'element-plus'
-import {ref, reactive}           from 'vue'
+import {ref, reactive, onMounted} from 'vue'
 
 // 自动化生成的字典（可能为空）以及字段
 const formData = ref({
     username: '',
     password: '',
     email: '',
+    phone: '',
 })
 
 // 验证规则
 const rule = reactive({
-    title: [
+    username: [
         {
             required: true,
             message: '',
@@ -154,29 +149,25 @@ const rule = reactive({
             trigger: ['input', 'blur'],
         }
     ],
-    video_source: [
+    password: [
         {
             required: true,
             message: '',
             trigger: ['input', 'blur'],
         }
     ],
-})
-
-const searchRule = reactive({
-    createdAt: [
+    email: [
         {
-            validator: (rule, value, callback) => {
-                if(searchInfo.value.startCreatedAt && !searchInfo.value.endCreatedAt) {
-                    callback(new Error('请填写结束日期'))
-                } else if(!searchInfo.value.startCreatedAt && searchInfo.value.endCreatedAt) {
-                    callback(new Error('请填写开始日期'))
-                } else if(searchInfo.value.startCreatedAt && searchInfo.value.endCreatedAt && (searchInfo.value.startCreatedAt.getTime() === searchInfo.value.endCreatedAt.getTime() || searchInfo.value.startCreatedAt.getTime() > searchInfo.value.endCreatedAt.getTime())) {
-                    callback(new Error('开始日期应当早于结束日期'))
-                } else {
-                    callback()
-                }
-            }, trigger: 'change'
+            required: true,
+            message: '',
+            trigger: ['input', 'blur'],
+        }
+    ],
+    phone: [
+        {
+            required: true,
+            message: '',
+            trigger: ['input', 'blur'],
         }
     ],
 })
@@ -200,7 +191,7 @@ const onReset = () => {
 // 搜索
 const onSubmit = () => {
     elSearchFormRef.value?.validate(async (valid) => {
-        if(!valid) return
+        if (!valid) return
         page.value = 1
         pageSize.value = 10
         getTableData()
@@ -222,26 +213,19 @@ const handleCurrentChange = (val) => {
 // 查询
 const getTableData = async () => {
     const params = {page: page.value, pageSize: pageSize.value, ...searchInfo.value}
-    console.log(params)
     const res = await getPageList(params)
-    if(res.code === 0) {
+    if (res.code === 0) {
         tableData.value = res.data.list
         total.value = res.data.total
         page.value = res.data.page
         pageSize.value = res.data.pageSize
     }
 }
-getTableData()
 
 // ============== 表格控制部分结束 ===============
-
-// 获取需要的字典 可能为空 按需保留
-const setOptions = async () => {
-
-}
-
-// 获取需要的字典 可能为空 按需保留
-setOptions()
+onMounted(async () => {
+    await getTableData()
+})
 
 
 // 多选数据
@@ -259,7 +243,7 @@ const deleteRow = async (row) => {
             cancelButtonText: '取消',
             type: 'warning'
         })
-        if(temp) {
+        if (temp) {
             await deleteByIds({ids: row.id})
             await getTableData()
         }
@@ -275,7 +259,7 @@ const deleteVisible = ref(false)
 // 多选删除
 const onDelete = async () => {
     const ids = []
-    if(multipleSelection.value.length === 0) {
+    if (multipleSelection.value.length === 0) {
         ElMessage({
             type: 'warning',
             message: '请选择要删除的数据'
@@ -287,12 +271,12 @@ const onDelete = async () => {
         ids.push(item.id)
     })
     const res = await deleteByIds({ids: ids.join(",")})
-    if(res.code === 0) {
+    if (res.code === 0) {
         ElMessage({
             type: 'success',
             message: '删除成功'
         })
-        if(tableData.value.length === ids.length && page.value > 1) {
+        if (tableData.value.length === ids.length && page.value > 1) {
             page.value--
         }
         deleteVisible.value = false
@@ -307,25 +291,9 @@ const type = ref('')
 const updateRecordFunc = async (row) => {
     const res = await getDetailById({id: row.id})
     type.value = 'update'
-    if(res.code === 0) {
+    if (res.code === 0) {
         formData.value = res.data
         dialogFormVisible.value = true
-    }
-}
-
-
-// 删除行
-const deleteRecordFunc = async (row) => {
-    const res = await getDetailById({id: row.id})
-    if(res.code === 0) {
-        ElMessage({
-            type: 'success',
-            message: '删除成功'
-        })
-        if(tableData.value.length === 1 && page.value > 1) {
-            page.value--
-        }
-        getTableData()
     }
 }
 
@@ -347,7 +315,7 @@ const openDetailShow = () => {
 const getDetails = async (row) => {
     // 打开弹窗
     const res = await getDetailById({id: row.id})
-    if(res.code === 0) {
+    if (res.code === 0) {
         formData.value = res.data
         openDetailShow()
     }
@@ -358,11 +326,10 @@ const getDetails = async (row) => {
 const closeDetailShow = () => {
     detailShow.value = false
     formData.value = {
-        title: '',
-        describe: '',
-        cover: '',
-        video_source: undefined,
-        video_id: '',
+        username: '',
+        password: '',
+        email: '',
+        phone: '',
     }
 }
 
@@ -377,17 +344,16 @@ const openDialog = () => {
 const closeDialog = () => {
     dialogFormVisible.value = false
     formData.value = {
-        title: '',
-        describe: '',
-        cover: '',
-        video_source: undefined,
-        video_id: '',
+        username: '',
+        password: '',
+        email: '',
+        phone: '',
     }
 }
 // 弹窗确定
 const enterDialog = async () => {
     elFormRef.value?.validate(async (valid) => {
-        if(!valid) return
+        if (!valid) return
         let res
         switch (type.value) {
             case 'create':
@@ -397,10 +363,10 @@ const enterDialog = async () => {
                 res = await updateById(formData.value)
                 break
         }
-        if(res.code === 0) {
+        if (res.code === 0) {
             ElMessage({
                 type: 'success',
-                message: '创建/更改成功'
+                message: '操作成功'
             })
             closeDialog()
             getTableData()

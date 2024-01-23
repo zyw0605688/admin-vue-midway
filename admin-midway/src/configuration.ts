@@ -9,7 +9,6 @@ import {JwtMiddleware} from './middleware/jwt.middleware.js';
 import {DefaultErrorFilter} from './filter/default.filter.js';
 import {NotFoundFilter} from './filter/notfound.filter.js';
 import DefaultConfig from './config/config.default.js';
-import UnittestConfig from './config/config.unittest.js';
 
 @Configuration({
   imports: [
@@ -25,7 +24,6 @@ import UnittestConfig from './config/config.unittest.js';
   importConfigs: [
     {
       default: DefaultConfig,
-      unittest: UnittestConfig,
     },
   ],
 })
