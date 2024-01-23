@@ -39,8 +39,20 @@ export class UserService {
       db.skip((params.page - 1) * params.pageSize).take(params.pageSize)
     }
     if (params.username) {
-      db.where({username: params.username})
-      count.where({username: params.username})
+      db.andWhere('username LIKE :username', {
+        username: `%${params.username}%`,
+      })
+      count.andWhere('username LIKE :username', {
+        username: `%${params.username}%`,
+      })
+    }
+    if (params.email) {
+      db.andWhere('email LIKE :email', {
+        email: `%${params.email}%`,
+      })
+      count.andWhere('email LIKE :email', {
+        email: `%${params.email}%`,
+      })
     }
     const list = await db.getMany()
     const total = await count.getCount()
