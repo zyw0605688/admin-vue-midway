@@ -3,7 +3,10 @@
         <div class="mva-search-box">
             <el-form ref="elSearchFormRef" :inline="true" :model="searchInfo" class="demo-form-inline" @keyup.enter="onSearch">
                 <el-form-item label="用户名">
-                    <el-input v-model="searchInfo.username" placeholder="搜索用户名"/>
+                    <el-input v-model="searchInfo.username" placeholder="关键字"/>
+                </el-form-item>
+                <el-form-item label="邮箱">
+                    <el-input v-model="searchInfo.email" placeholder="关键字"/>
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" icon="search" @click="onSearch">查询</el-button>
