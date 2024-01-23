@@ -15,7 +15,7 @@ export default defineConfig({
   },
   server: {
     host: "0.0.0.0",
-    port: 8001,
+    port: 7000,
     open: true, // 服务启动时自动在浏览器打开
     https: false, // 是否启用http2
     proxy: {
