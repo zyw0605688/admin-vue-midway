@@ -33,9 +33,9 @@
                         <el-checkbox v-model="row.require"/>
                     </template>
                 </el-table-column>
-                <el-table-column align="left" prop="sort" label="排序">
+                <el-table-column align="left" prop="clearable" label="清空">
                     <template #default="{row}">
-                        <el-checkbox v-model="row.sort"/>
+                        <el-checkbox v-model="row.clearable"/>
                     </template>
                 </el-table-column>
                 <el-table-column align="left" prop="fieldType" label="字段类型" width="160">
@@ -80,7 +80,6 @@
                             />
                         </el-select>
                     </template>
-
                 </el-table-column>
                 <el-table-column align="left" label="操作" width="300" fixed="right">
                     <template #default="scope">
@@ -124,8 +123,9 @@
 </template>
 
 <script setup>
-import FieldDialog from './component/fieldDialog.vue'
+import FieldDialog               from './component/fieldDialog.vue'
 import {ref, getCurrentInstance} from 'vue'
+import {createFile}              from "@/api/autoCode"
 
 const typeOptions = ref([
     {
@@ -201,19 +201,12 @@ const typeSearchOptions = ref([
 ])
 const fieldTemplate = {
     fieldName: '',
-    fieldDesc: '',
-    fieldType: '',
-    dataType: '',
-    fieldJson: '',
-    columnName: '',
-    dataTypeLong: '',
     comment: '',
-    require: false,
-    sort: false,
-    errorText: '',
-    clearable: true,
+    fieldType: '',
+    dataTypeLong: '',
     fieldSearchType: '',
-    dictType: ''
+    require: false,
+    clearable: true,
 }
 const formFlag = ref('')
 const form = ref({
@@ -233,11 +226,14 @@ const editAndAddField = (item) => {
     if(item) {
         formFlag.value = 'edit'
         dialogMiddle.value = item
+        console.log("formFlag:", formFlag.value)
+        console.log("formFlag:", dialogMiddle.value)
     } else {
         formFlag.value = 'add'
-        dialogMiddle.value = JSON.parse(JSON.stringify(fieldTemplate))
+        dialogMiddle.value = {}
+        console.log("formFlag:", formFlag.value)
     }
-    console.log("formFlag:", formFlag.value)
+
 }
 const moveUpField = (index) => {
     if(index === 0) {
@@ -263,6 +259,8 @@ const enterDialog = () => {
         if(valid) {
             if(formFlag.value === 'add') {
                 form.value.fields.push(currentInstance.refs.fieldDialogNode.middleDate)
+                currentInstance.refs.fieldDialogNode.middleDate = {}
+                dialogMiddle.value = {}
             }
             dialogFlag.value = false
         } else {
@@ -275,6 +273,8 @@ const deleteField = (index) => {
 }
 const createCodeToFile = async () => {
     console.log(form.value)
+    const res = await createFile(form.value)
+    console.log(res)
 }
 </script>
 <style lang="scss" scoped>

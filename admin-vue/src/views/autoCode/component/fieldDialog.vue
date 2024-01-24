@@ -50,24 +50,18 @@
                     />
                 </el-select>
             </el-form-item>
-            <el-form-item label="是否排序">
-                <el-switch v-model="middleDate.sort"/>
-            </el-form-item>
             <el-form-item label="是否必填">
                 <el-switch v-model="middleDate.require"/>
             </el-form-item>
             <el-form-item label="是否可清空">
                 <el-switch v-model="middleDate.clearable"/>
             </el-form-item>
-            <el-form-item label="校验失败文案">
-                <el-input v-model="middleDate.errorText"/>
-            </el-form-item>
         </el-form>
     </div>
 </template>
 
 <script setup>
-import {ref} from 'vue'
+import {onMounted, ref, watch} from 'vue'
 
 const props = defineProps({
     dialogMiddle: {
@@ -102,6 +96,14 @@ const rules = ref({
 })
 
 
+watch(() => props.dialogMiddle, (val) => {
+    middleDate.value = props.dialogMiddle
+}, {
+    deep: true,
+    immediate: true
+})
+
+
 const canSelect = (item) => {
     const fieldType = middleDate.value.fieldType
     if(fieldType !== 'string' && item === 'LIKE') {
@@ -117,7 +119,7 @@ const clearOther = () => {
 }
 
 const fieldDialogFrom = ref(null)
-defineExpose({fieldDialogFrom,middleDate})
+defineExpose({fieldDialogFrom, middleDate})
 </script>
 
 <script>
