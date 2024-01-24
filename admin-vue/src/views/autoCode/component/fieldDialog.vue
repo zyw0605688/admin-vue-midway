@@ -107,6 +107,7 @@ const rules = ref({
     ]
 })
 
+
 const canSelect = (item) => {
     const fieldType = middleDate.value.fieldType
     if(fieldType !== 'string' && item === 'LIKE') {
@@ -123,6 +124,11 @@ const clearOther = () => {
     middleDate.value.fieldSearchType = ''
     middleDate.value.dictType = ''
 }
+
+const init = async() => {
+    middleDate.value = props.dialogMiddle
+}
+init()
 
 const fieldDialogFrom = ref(null)
 defineExpose({fieldDialogFrom})
