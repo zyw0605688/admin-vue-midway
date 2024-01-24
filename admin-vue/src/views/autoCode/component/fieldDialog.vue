@@ -3,9 +3,9 @@
         <el-form
             ref="fieldDialogFrom"
             :model="middleDate"
+            :rules="rules"
             label-width="120px"
             label-position="right"
-            :rules="rules"
             class="grid grid-cols-2"
         >
             <el-form-item label="字段" prop="fieldName">
@@ -96,12 +96,6 @@ const rules = ref({
     fieldName: [
         {required: true, message: '请输入字段英文名', trigger: 'blur'}
     ],
-    fieldDesc: [
-        {required: true, message: '请输入字段中文名', trigger: 'blur'}
-    ],
-    columnName: [
-        {required: true, message: '请输入数据库字段', trigger: 'blur'}
-    ],
     fieldType: [
         {required: true, message: '请选择字段类型', trigger: 'blur'}
     ]
@@ -113,11 +107,8 @@ const canSelect = (item) => {
     if(fieldType !== 'string' && item === 'LIKE') {
         return true
     }
+    return (fieldType !== 'int' && fieldType !== 'time.Time' && fieldType !== 'float64') && (item === 'BETWEEN' || item === 'NOT BETWEEN');
 
-    if((fieldType !== 'int' && fieldType !== 'time.Time' && fieldType !== 'float64') && (item === 'BETWEEN' || item === 'NOT BETWEEN')) {
-        return true
-    }
-    return false
 }
 
 const clearOther = () => {
@@ -125,13 +116,8 @@ const clearOther = () => {
     middleDate.value.dictType = ''
 }
 
-const init = async() => {
-    middleDate.value = props.dialogMiddle
-}
-init()
-
 const fieldDialogFrom = ref(null)
-defineExpose({fieldDialogFrom})
+defineExpose({fieldDialogFrom,middleDate})
 </script>
 
 <script>
